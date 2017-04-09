@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Moteling.DATA.Configurations;
+using Moteling.DATA.Entities;
 using Moteling.DATA.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace Moteling.DATA
 {
     public class MotelingContext : DbContext, IContextBase
     {
+        //Variables only to Initialze db
+        public DbSet<Motel> Motels { get; set; }
+        public DbSet<MotelAddress> Addresses { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<RoomImage> RoomImages { get; set; }
+
         public MotelingContext(DbContextOptions<MotelingContext> options) : base(options)
         {
 

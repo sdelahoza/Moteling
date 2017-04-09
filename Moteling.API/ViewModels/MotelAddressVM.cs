@@ -1,7 +1,15 @@
-﻿namespace Moteling.DATA.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Moteling.API.ViewModels
 {
-    public class MotelAddress : BaseEntity<int>
+    public class MotelAddressVM
     {
+        public int MotelAddressId { get; set; }
+
         public string Address { get; set; }
 
         public double Latitude { get; set; }
@@ -11,7 +19,5 @@
         public string City { get; set; }
 
         public string Country { get; set; }
-
-        public virtual Motel Motel { get; set; }
     }
 }

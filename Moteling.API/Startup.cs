@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moteling.DATA;
+using Moteling.DATA.Infrastructure;
 using Moteling.DATA.Services;
 using Moteling.DATA.Services.Interfaces;
 using NLog.Extensions.Logging;
@@ -41,21 +42,24 @@ namespace Moteling.API
             services.AddMvc();
 
             //Add Injections
+            services.AddScoped<IContextBase, MotelingContext>();
             services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MotelingContext context, ILogger<Startup> _logger)
         {
             loggerFactory.AddConsole();
             loggerFactory.AddNLog();
+            app.AddNLogWeb();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                DbInitializer.Initialize(context);
+                _logger.LogInformation("DataBase Initialized");
             }
-
-            app.AddNLogWeb();
+                        
             app.UseMvc();
         }
     }

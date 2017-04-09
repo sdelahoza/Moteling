@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moteling.DATA;
+using Moteling.DATA.Services;
+using Moteling.DATA.Services.Interfaces;
 using NLog.Extensions.Logging;
 using NLog.Web;
 
@@ -37,6 +39,9 @@ namespace Moteling.API
 
             //Add framework services
             services.AddMvc();
+
+            //Add Injections
+            services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

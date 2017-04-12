@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,7 @@ namespace Moteling.API
 
             //Add framework services
             services.AddMvc();
+            services.AddAutoMapper(typeof(Startup));
 
             //Add Injections
             services.AddScoped<IContextBase, MotelingContext>();

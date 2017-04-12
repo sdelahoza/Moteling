@@ -8,7 +8,7 @@ namespace Moteling.API.ViewModels
 {
     public class MotelAddressVM
     {
-        public int MotelAddressId { get; set; }
+        public int Id { get; set; }
 
         public string Address { get; set; }
 

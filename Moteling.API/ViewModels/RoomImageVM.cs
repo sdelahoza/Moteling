@@ -8,7 +8,7 @@ namespace Moteling.API.ViewModels
 {
     public class RoomImageVM
     {
-        public long RoomImageId { get; set; }
+        public long Id { get; set; }
 
         public string ImageUrl { get; set; }
 

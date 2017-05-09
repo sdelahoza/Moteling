@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Moteling.DATA.Entities.Motel>
+@{
+    ViewData["Title"] = "Moteles";
+}
+
+<h2>@ViewData["Title"].</h2>
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        <p>@Html.ActionLink("New Motel", "Create", "Motel", null, new { @class = "btn btn-primary" })</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">        
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.FirstOrDefault().Address.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.FirstOrDefault().PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.FirstOrDefault().Page)
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Address.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.PhoneNumber)
+                    </td>
+                    <td>
+                        <a href="@item.Page">@Html.DisplayFor(m => item.Page)</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

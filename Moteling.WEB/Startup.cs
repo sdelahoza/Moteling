@@ -12,6 +12,10 @@ using Microsoft.Extensions.Logging;
 using Moteling.WEB.Data;
 using Moteling.WEB.Models;
 using Moteling.WEB.Services;
+using Moteling.DATA.Services.Interfaces;
+using Moteling.DATA.Services;
+using Moteling.DATA;
+using Moteling.DATA.Infrastructure;
 
 namespace Moteling.WEB
 {
@@ -40,11 +44,11 @@ namespace Moteling.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<MotelingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<MotelingContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
@@ -52,6 +56,8 @@ namespace Moteling.WEB
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddScoped<IContextBase, MotelingContext>();
+            services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

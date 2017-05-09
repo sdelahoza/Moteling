@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moteling.API.ViewModels;
 using Moteling.DATA.Entities;
-using Moteling.DATA.Extensions;
 using Moteling.DATA.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;

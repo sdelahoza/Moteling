@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moteling.API", "Moteling.AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moteling.DATA", "Moteling.DATA\Moteling.DATA.csproj", "{915426F5-8FB9-4B47-93BB-C0F815EB365F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moteling.WEB", "Moteling.WEB\Moteling.WEB.csproj", "{8712276F-DF77-4C36-8878-97D4D343FE12}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{915426F5-8FB9-4B47-93BB-C0F815EB365F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{915426F5-8FB9-4B47-93BB-C0F815EB365F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{915426F5-8FB9-4B47-93BB-C0F815EB365F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8712276F-DF77-4C36-8878-97D4D343FE12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8712276F-DF77-4C36-8878-97D4D343FE12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8712276F-DF77-4C36-8878-97D4D343FE12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8712276F-DF77-4C36-8878-97D4D343FE12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

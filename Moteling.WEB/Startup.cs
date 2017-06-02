@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Moteling.WEB.Data;
 using Moteling.WEB.Models;
 using Moteling.WEB.Services;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace Moteling.WEB
 {
@@ -32,6 +30,8 @@ namespace Moteling.WEB
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            env.ConfigureNLog("nlog.config");
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -58,7 +58,8 @@ namespace Moteling.WEB
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
+            app.AddNLogWeb();
 
             if (env.IsDevelopment())
             {

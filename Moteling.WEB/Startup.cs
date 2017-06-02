@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,7 @@ namespace Moteling.WEB
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            services.AddAutoMapper(typeof(Startup));
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

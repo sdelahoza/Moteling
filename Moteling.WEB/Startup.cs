@@ -12,6 +12,7 @@ using Moteling.DATA.Infrastructure;
 using Moteling.DATA.Services;
 using Moteling.DATA.Services.Interfaces;
 using Moteling.WEB.Data;
+using Moteling.WEB.Helpers;
 using Moteling.WEB.Models;
 using Moteling.WEB.Services;
 using NLog.Extensions.Logging;
@@ -64,6 +65,12 @@ namespace Moteling.WEB
 
             services.AddMvc();
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsAdmin", policy =>
+                                  policy.RequireClaim(IdentityClaimTypes.IsAdmin, "True"));
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

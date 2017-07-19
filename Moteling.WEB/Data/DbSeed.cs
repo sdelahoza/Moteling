@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Moteling.WEB.Extension;
 using Moteling.WEB.Models;
 
 namespace Moteling.WEB.Data
@@ -21,6 +22,7 @@ namespace Moteling.WEB.Data
                     IsAdmin =  true
                 };
                 var result = await _userManager.CreateAsync(admin, "admin");
+                await _userManager.AddIdentityClaims(admin);
             }
         }
     }

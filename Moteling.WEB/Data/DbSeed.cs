@@ -13,7 +13,13 @@ namespace Moteling.WEB.Data
             var user = await _userManager.FindByNameAsync("admin");
             if (user == null)
             {
-                var admin = new ApplicationUser { UserName = "admin", Email = "admin@admin.com" };
+                var admin = new ApplicationUser
+                {
+                    UserName = "admin",
+                    Email = "admin@admin.com",
+                    FullName = "Admin",
+                    IsAdmin =  true
+                };
                 var result = await _userManager.CreateAsync(admin, "admin");
             }
         }

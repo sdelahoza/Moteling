@@ -10,7 +10,7 @@
                 <ul class="dropdown-menu">
                     @if (User.IsAdmin())
                     {
-                        <li><a href="#">Users</a></li>
+                        <li><a asp-controller="Account" asp-action="Index">Users</a></li>
                     }
                     <li><a href="#">Settings</a></li>
                     <li role="separator" class="divider"></li>

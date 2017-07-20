@@ -10,10 +10,13 @@ using Microsoft.Extensions.Options;
 using Moteling.WEB.Models;
 using Moteling.WEB.Models.AccountViewModels;
 using Moteling.WEB.Services;
+using AutoMapper;
+using System.Collections.Generic;
+using Moteling.WEB.ViewModels.Account;
 
 namespace Moteling.WEB.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "IsAdmin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -21,6 +24,7 @@ namespace Moteling.WEB.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly IMapper _mapper;
         private readonly string _externalCookieScheme;
 
         public AccountController(
@@ -29,7 +33,8 @@ namespace Moteling.WEB.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,6 +42,16 @@ namespace Moteling.WEB.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _mapper = mapper;
+        }
+
+        //
+        // GET: /Account/Index
+        public IActionResult Index()
+        {
+            var users = _userManager.Users.Where(u => u.UserName != "admin").ToList();
+            var usersVM = _mapper.Map<List<UserVM>>(users);
+            return View(usersVM);
         }
 
         //
@@ -103,7 +118,6 @@ namespace Moteling.WEB.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Policy = "IsAdmin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {

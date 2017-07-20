@@ -1,0 +1,31 @@
+﻿@model IEnumerable<UserVM>
+
+@{ 
+    ViewData["Title"] = "Users";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="text-center">@ViewData["Title"]</h3>
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().FullName)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var user in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayText(user.FullName)</td>
+                        <td>
+                            <a asp-controller="Account" asp-action="Edit" asp-route-id="@user.Id">Edit</a><span> | </span>
+                            <a asp-controller="Account" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

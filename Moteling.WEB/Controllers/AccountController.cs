@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Moteling.WEB.Extension;
 using Moteling.WEB.Models;
 using Moteling.WEB.Models.AccountViewModels;
 using Moteling.WEB.Services;
@@ -16,7 +17,7 @@ using Moteling.WEB.ViewModels.Account;
 
 namespace Moteling.WEB.Controllers
 {
-    [Authorize(Policy = "IsAdmin")]
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -47,6 +48,7 @@ namespace Moteling.WEB.Controllers
 
         //
         // GET: /Account/Index
+        [Authorize(Policy = "IsAdmin")]
         public IActionResult Index()
         {
             var users = _userManager.Users.Where(u => u.UserName != "admin").ToList();
@@ -109,34 +111,27 @@ namespace Moteling.WEB.Controllers
         // GET: /Account/Register
         [HttpGet]
         [Authorize(Policy = "IsAdmin")]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register()
         {
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
+        [Authorize(Policy = "IsAdmin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterVM model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = _mapper.Map<ApplicationUser>(model);
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _userManager.AddIdentityClaims(user);
                     _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index");
                 }
                 AddErrors(result);
             }

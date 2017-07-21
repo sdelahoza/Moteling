@@ -14,6 +14,7 @@ namespace Moteling.WEB.Infrastructure.AutoMapper
         public MappingProfile()
         {
             CreateMap<ApplicationUser, UserVM>();
+            CreateMap<RegisterVM, ApplicationUser>();
         }
     }
 }
